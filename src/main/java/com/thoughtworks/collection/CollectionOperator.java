@@ -2,30 +2,43 @@ package com.thoughtworks.collection;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class CollectionOperator {
     public List<Integer> getListByInterval(int left, int right) {
-        throw new NotImplementedException();
+        List<Integer> list = IntStream.rangeClosed(Math.min(left, right), Math.max(left, right)).boxed().collect(Collectors.toList());
+        if (left > right) {
+            Collections.reverse(list);
+        }
+        return list;
     }
 
     public List<Integer> getEvenListByIntervals(int left, int right) {
-        throw new NotImplementedException();
+        List<Integer> list = IntStream.rangeClosed(Math.min(left, right), Math.max(left, right))
+                .filter(n -> n % 2 == 0).boxed().collect(Collectors.toList());
+        if (left > right) {
+            Collections.reverse(list);
+        }
+        return list;
+
     }
 
     public List<Integer> popEvenElments(int[] array) {
-        throw new NotImplementedException();
+        return Arrays.stream(array).boxed().filter(n -> n % 2 == 0).collect(Collectors.toList());
     }
 
     public int popLastElment(int[] array) {
-        throw new NotImplementedException();
+        return array == null ? -1 : array.length <= 0 ? -1 : array[array.length - 1];
     }
 
     public List<Integer> popCommonElement(int[] firstArray, int[] secondArray) {
-        throw new NotImplementedException();
+        return Arrays.stream(firstArray).boxed().filter(n -> Arrays.stream(secondArray).anyMatch(i -> i == n)).collect(Collectors.toList());
     }
 
     public List<Integer> addUncommonElement(Integer[] firstArray, Integer[] secondArray) {
-        throw new NotImplementedException();
+        return Stream.concat(Arrays.stream(firstArray), Arrays.stream(secondArray)).distinct().collect(Collectors.toList());
     }
 }
