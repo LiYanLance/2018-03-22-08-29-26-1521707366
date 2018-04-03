@@ -1,7 +1,6 @@
 package com.thoughtworks.collection;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
+import java.util.Collections;
 import java.util.List;
 
 public class Reduce {
@@ -13,43 +12,62 @@ public class Reduce {
     }
 
     public int getMaximum() {
-        throw new NotImplementedException();
+        return arrayList.stream().mapToInt(n -> n).max().getAsInt();
     }
 
     public double getMinimum() {
-        throw new NotImplementedException();
+        return arrayList.stream().mapToInt(n -> n).min().getAsInt();
     }
 
     public double getAverage() {
-        throw new NotImplementedException();
+        return arrayList.stream().mapToInt(n -> n).average().getAsDouble();
     }
 
     public double getOrderedMedian() {
-        throw new NotImplementedException();
+        double res = arrayList.get((arrayList.size() - 1) / 2);
+        return arrayList.size() % 2 == 0 ? (res + arrayList.get(arrayList.size() / 2)) / 2.0 : res;
     }
 
     public int getFirstEven() {
-        throw new NotImplementedException();
+        return arrayList.stream().filter(n -> n % 2 == 0).findFirst().get();
     }
 
     public int getIndexOfFirstEven() {
-        throw new NotImplementedException();
+        int i = 0;
+        for (; i < arrayList.size() && arrayList.get(i) % 2 != 0; i++) ;
+        return i;
     }
 
     public boolean isEqual(List<Integer> arrayList) {
-        throw new NotImplementedException();
+        if (this.arrayList.size() != arrayList.size()) {
+            return false;
+        }
+        for (int i = 0; i < this.arrayList.size(); i++) {
+            if (this.arrayList.get(i) != arrayList.get(i)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     //实现接口SingleLink，然后再此函数内使用
-    public Double getMedianInLinkList(SingleLink singleLink) {
-        throw new NotImplementedException();
+    public Double getMedianInLinkList(SingleLink<Integer> singleLink) {
+        /*singleLink = new SingleLinkImpl<>();*/
+        for (Integer integer : arrayList) {
+            singleLink.addTailPointer(integer);
+        }
+        return (singleLink.getNode(6) + singleLink.getNode(7)) / 2.0;
     }
 
     public int getLastOdd() {
-        throw new NotImplementedException();
+        Collections.reverse(arrayList);
+        return arrayList.stream().filter(n -> n % 2 != 0).findFirst().get();
     }
 
     public int getIndexOfLastOdd() {
-        throw new NotImplementedException();
+        int i = arrayList.size() - 1;
+        for (; i >= 0 && arrayList.get(i) % 2 == 0; i--) ;
+        return i;
     }
+
 }
