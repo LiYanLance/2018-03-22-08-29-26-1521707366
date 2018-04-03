@@ -21,7 +21,7 @@ public class MyMap {
     }
 
     public List<String> mapLetter() {
-        return array.stream().map(n -> letters[n]).collect(Collectors.toList());
+        return array.stream().map(n -> letterList.get(n - 1)).collect(Collectors.toList());
     }
 
     public List<String> mapLetters() {
